@@ -79,8 +79,7 @@ const CreatorPage: React.FC = () => {
             title={tournament.name}
             subhead={tournament.type}
             prizePool={tournament.prizePool}
-            slots={tournament.maxPlayers.toString()}  // Convertir en chaîne
-            description={tournament.description}
+            slots={tournament.maxPlayers.toString()}  // Convertir en chaîne de caractères
             entryFree={tournament.entryFree}  // Utiliser la bonne propriété
             profileImageUrl={tournament.profileImageUrl}
             teamSize={tournament.teamSize}

@@ -37,7 +37,10 @@ const Card: React.FC<CardProps> = ({
   const [timeRemaining, setTimeRemaining] = useState<string>('');
   const [isRegistered, setIsRegistered] = useState<boolean>(false); // État pour suivre l'inscription
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-  const cardRef = useRef<HTMLDivElement | null>(null);
+  const cardRefButton = useRef<HTMLButtonElement | null>(null);
+  const cardRefDiv = useRef<HTMLDivElement | null>(null);  
+  const buttonText = entryFree ? 'S’inscrire' : 'Payer';
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -215,13 +218,13 @@ const Card: React.FC<CardProps> = ({
 
   return (
     <div
-      ref={cardRef}
+      ref={cardRefDiv}
       className="w-[320px] rounded-2xl overflow-hidden shadow-lg text-white transition-transform duration-300 ease-in-out hover:shadow-2xl m-4 flex flex-col justify-between card-container"
       style={{ background: 'rgba(255, 255, 255, 0.04)' }}
     >
       {/* Contenu de la carte */}
-      <div
-        ref={cardRef}
+      <button
+        ref={cardRefButton}
         className="w-[320px] rounded-2xl overflow-hidden shadow-lg text-white transition-transform duration-300 ease-in-out"
         style={{ background: 'rgba(255, 255, 255, 0.04)' }}
         onClick={handleCardClick}
@@ -230,8 +233,6 @@ const Card: React.FC<CardProps> = ({
             handleCardClick();
           }
         }}
-        role="button"  // Ajout du rôle interactif
-        tabIndex={0}  // Ajout de tabIndex pour le rendre focusable
       >
         <div className="flex items-center p-4">
           <div className="flex-shrink-0">
@@ -264,7 +265,7 @@ const Card: React.FC<CardProps> = ({
             <p className="text-gray-300">Début: {timeRemaining}</p>
           </div>
         </div>
-      </div>
+      </button>
       <div className="px-6 pb-4 mt-auto">
         <div className="flex items-center justify-between">
           <button
@@ -274,14 +275,14 @@ const Card: React.FC<CardProps> = ({
             onClick={handleRegister}
             disabled={isRegistered}
           >
-          {isRegistered ? (
-            <>
-              Inscrit
-              <img className="rounded-full w-4 h-4 inline-block ml-1" src={badge} alt="Badge" />
-            </>
-          ) : (
-            `${entryFree ? 'S’inscrire' : 'Payer'}` // ou une autre condition
-          )}
+            {isRegistered ? (
+              <>
+                Inscrit{" "}
+                <img className="rounded-full w-4 h-4 inline-block ml-1" src={badge} alt="Badge" />
+              </>
+            ) : (
+              buttonText // Utilisation de la variable pour le texte du bouton
+            )}
           </button>
           <div className="text-pink-500 cursor-pointer hover:scale-110 transition-transform duration-200">❤</div>
         </div>
