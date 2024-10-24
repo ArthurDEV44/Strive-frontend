@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useEffect, useState } from 'react';
+import React, { createContext, useContext, useEffect, useState, useMemo } from 'react';
 import { io, Socket } from 'socket.io-client';
 
 const websocketUrl = import.meta.env.VITE_WEBSOCKET_URL;
@@ -52,10 +52,12 @@ export const WebSocketProvider: React.FC<{ children: React.ReactNode }> = ({ chi
   }, []);  
   
   return (
-    <WebSocketContext.Provider value={{ tournaments, sendMessage }}>
+    <WebSocketContext.Provider
+      value={useMemo(() => ({ tournaments, sendMessage }), [tournaments, sendMessage])}
+    >
       {children}
     </WebSocketContext.Provider>
-  );
+  );  
 };
 
 // Custom hook pour utiliser le contexte WebSocket

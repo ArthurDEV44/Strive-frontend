@@ -1,8 +1,13 @@
-// src/components/TeamsTable.tsx
 import React from 'react';
 
+interface Team {
+  id: number;
+  teamName: string;
+  // Ajoutez d'autres propriétés si nécessaire
+}
+
 interface TeamsTableProps {
-  teams: string[];
+  teams: Team[];
 }
 
 const TeamsTable: React.FC<TeamsTableProps> = ({ teams }) => {
@@ -16,10 +21,11 @@ const TeamsTable: React.FC<TeamsTableProps> = ({ teams }) => {
           </tr>
         </thead>
         <tbody>
-          {teams.map((team, index) => (
-            <tr key={index} className="border-t">
-              <td className="px-4 py-2">{index + 1}</td>
-              <td className="px-4 py-2">{team}</td>
+          {teams.map((team) => (
+            <tr key={team.id} className="border-t">
+              <td className="px-4 py-2">{team.id}</td>
+              <td className="px-4 py-2">{team.teamName}</td>
+              {/* Ajoutez d'autres propriétés si nécessaire */}
             </tr>
           ))}
         </tbody>

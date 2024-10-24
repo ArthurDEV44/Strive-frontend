@@ -74,16 +74,17 @@ const CreatorPage: React.FC = () => {
         {errorMessage && <p className="text-red-500">{errorMessage}</p>}
         {tournaments.length > 0 && tournaments.map((tournament) => (
           <Card
+            key={tournament.id}  // Assurez-vous que 'id' est unique pour chaque tournoi
             id={tournament.id}
             title={tournament.name}
             subhead={tournament.type}
             prizePool={tournament.prizePool}
-            slots={`0/${tournament.maxPlayers}`}
+            slots={tournament.maxPlayers.toString()}  // Convertir en chaîne
             description={tournament.description}
-            entryFree={tournament.entryFree}
+            entryFree={tournament.entryFree}  // Utiliser la bonne propriété
             profileImageUrl={tournament.profileImageUrl}
             teamSize={tournament.teamSize}
-            format={tournament.format} // Passer la durée des matchs
+            format={tournament.format}
             startDateTime={tournament.startDateTime} // Passer la date et l'heure de début
           />
         ))}

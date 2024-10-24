@@ -27,7 +27,6 @@ const Card: React.FC<CardProps> = ({
   subhead,
   prizePool,
   slots,
-  description,
   entryFree,
   profileImageUrl,
   teamSize,
@@ -222,7 +221,18 @@ const Card: React.FC<CardProps> = ({
       style={{ background: 'rgba(255, 255, 255, 0.04)' }}
     >
       {/* Contenu de la carte */}
-      <div onClick={handleCardClick}>
+      <div
+        ref={cardRef}
+        className="w-[320px] rounded-2xl overflow-hidden shadow-lg text-white transition-transform duration-300 ease-in-out"
+        style={{ background: 'rgba(255, 255, 255, 0.04)' }}
+        onClick={handleCardClick}
+        onKeyDown={(e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            handleCardClick();
+          }
+        }}
+        tabIndex={0}  // Ajout de tabIndex pour le rendre focusable
+      >
         <div className="flex items-center p-4">
           <div className="flex-shrink-0">
             {profileImageUrl ? (
@@ -264,14 +274,14 @@ const Card: React.FC<CardProps> = ({
             onClick={handleRegister}
             disabled={isRegistered}
           >
-            {isRegistered ? (
-              <>
-                Inscrit
-                <img className="rounded-full w-4 h-4 inline-block ml-1" src={badge} alt="Badge" /> {/* Badge vert */}
-              </>
-            ) : (
-              `S'inscrire ${entryFree}€`
-            )}
+          {isRegistered ? (
+            <>
+              Inscrit
+              <img className="rounded-full w-4 h-4 inline-block ml-1" src={badge} alt="Badge" />
+            </>
+          ) : (
+            `${entryFree ? 'S’inscrire' : 'Payer'}` // ou une autre condition
+          )}
           </button>
           <div className="text-pink-500 cursor-pointer hover:scale-110 transition-transform duration-200">❤</div>
         </div>

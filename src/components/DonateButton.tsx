@@ -5,7 +5,7 @@ interface DonateButtonProps {
 }
 
 const DonateButton: React.FC<DonateButtonProps> = ({ onDonate }) => {
-  const [amount, setAmount] = useState<number>(0);
+  const [amount] = useState<number>(0);
 
   const handleDonate = () => {
     if (amount > 0) {

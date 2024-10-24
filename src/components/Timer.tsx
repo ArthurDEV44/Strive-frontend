@@ -11,7 +11,7 @@ const Timer: React.FC<TimerProps> = ({ time }) => {
   return (
     <div className="timer text-center">
       <span className="text-5xl">{minutes < 10 ? `0${minutes}` : minutes}</span>
-      : 
+      {' : '}
       <span className="text-5xl">{seconds < 10 ? `0${seconds}` : seconds}</span>
       <p className="text-lg">min</p>
     </div>
