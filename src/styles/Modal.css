@@ -1,0 +1,17 @@
+.modal-content {
+  position: relative;
+  max-height: 80vh;
+  overflow: hidden;
+}
+
+.modal-body {
+  padding-bottom: 70px;
+}
+
+.modal-footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  padding: 16px;
+  background-color: #111827;
+}

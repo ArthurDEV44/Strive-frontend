@@ -1,0 +1,10 @@
+.glow-effect {
+  border-color: #9b5de5; /* Couleur violette brillante */
+  box-shadow: 0 0 15px #B038CE, 0 0 30px #271C68;
+  background-color: black;
+  color: white;
+}
+
+.glow-effect:hover {
+  box-shadow: 10px 15px 60px #B038CE, -30px -15px 70px #271C68;
+}

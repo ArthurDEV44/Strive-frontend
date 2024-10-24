@@ -1,0 +1,50 @@
+/* Ligne horizontale */
+.bracket-connector-horizontal {
+  position: absolute;
+  width: 30px;
+  height: 2px;
+  background-color: #00ff00; /* Vert */
+}
+
+/* Ligne verticale */
+.bracket-connector-vertical {
+  position: absolute;
+  width: 2px;
+  background-color: #00ff00; /* Vert */
+}
+
+/* Hauteurs et positions ajustées pour chaque étape */
+.bracket-round1-match1 {
+  top: 20px;
+}
+
+.bracket-round1-match2 {
+  top: 80px;
+}
+
+.bracket-round2-match1 {
+  top: 50px;
+}
+
+.bracket-round2-match2 {
+  top: 180px;
+}
+
+.bracket-quarterfinals {
+  top: 130px;
+}
+
+.bracket-semifinals {
+  top: 260px;
+}
+
+/* Ajustements pour connecter correctement les lignes */
+.bracket-vertical-connector {
+  height: 40px; /* Ajuste la hauteur en fonction du besoin */
+  left: 100%; /* Pour l'alignement à droite */
+}
+
+.bracket-horizontal-connector {
+  height: 40px; /* Ajuste la hauteur en fonction du besoin */
+  top: 50%; /* Pour l'alignement vertical */
+}

@@ -1,0 +1,19 @@
+.switchaaro-page {
+  background-color: #1f1f1f;
+  color: white;
+}
+
+.timer-section {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.teams-section {
+  flex: 2;
+}
+
+.donation-section {
+  text-align: center;
+}
