@@ -13,7 +13,6 @@ interface CardProps {
   subhead: string;
   prizePool: number;
   slots: string;
-  description: string;
   entryFree: number;
   profileImageUrl: string;
   teamSize: number;
@@ -231,6 +230,7 @@ const Card: React.FC<CardProps> = ({
             handleCardClick();
           }
         }}
+        role="button"  // Ajout du rôle interactif
         tabIndex={0}  // Ajout de tabIndex pour le rendre focusable
       >
         <div className="flex items-center p-4">
