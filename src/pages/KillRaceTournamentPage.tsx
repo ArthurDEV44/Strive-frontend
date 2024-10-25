@@ -17,8 +17,9 @@ const TwitchStream = ({ username }: { username: string }) => (
       frameBorder="0"
       scrolling="no"
       allow="autoplay; fullscreen"
-      className="rounded-[1.4rem]"
-    />
+      className="rounded-lg"
+      title={`Twitch stream de ${username}`}  // Ajout du titre unique
+    ></iframe>
   </div>
 );
 
@@ -69,23 +70,26 @@ const addTeamToBracket = (rounds: IRoundProps[], teamName: string): IRoundProps[
 
   // Chercher dans les seeds du premier round
   for (let seed of updatedRounds[0].seeds) {
-    // Si une place libre est trouvée (pas d'équipe dans l'emplacement 0), on ajoute l'équipe
     if (!seed.teams[0].name) {
+      // Ajout de l'équipe dans la première place libre (emplacement 0)
       seed.teams[0] = { name: teamName };
-      return updatedRounds;
+      return updatedRounds;  // Retour immédiat car l'équipe a été ajoutée
     }
   }
 
-  // Si chaque emplacement a déjà une équipe, chercher une place pour l'adversaire
+  // Si l'équipe est déjà placée, on cherche une place pour l'adversaire
   for (let seed of updatedRounds[0].seeds) {
     if (!seed.teams[1].name) {
+      // Ajout de l'équipe dans la deuxième place libre (emplacement 1)
       seed.teams[1] = { name: teamName };
-      return updatedRounds;
+      return updatedRounds;  // Retour immédiat car l'adversaire a été ajouté
     }
   }
 
-  // Si tout est déjà complet, on ne fait rien (ou on peut ajouter une gestion d'erreur)
-  return updatedRounds;
+  // Si aucune place n'a été trouvée, on retourne un message d'erreur ou une gestion de l'erreur
+  // Ici on peut ajouter une gestion spécifique en fonction du contexte
+  console.error("Impossible d'ajouter l'équipe au bracket : pas de place libre.");
+  return updatedRounds; // On retourne tout de même le tableau mis à jour même si aucune place n'a été trouvée.
 };
 
 interface TeamOption {
@@ -154,12 +158,6 @@ const KillRaceTournamentPage: React.FC = () => {
 
     fetchTournamentData();
   }, [id]);
-
-  // Quand une nouvelle équipe s'inscrit, on l'ajoute au bracket
-  const handleNewTeamRegistration = (teamName: string) => {
-    const updatedRounds = addTeamToBracket(rounds, teamName);
-    setRounds(updatedRounds);
-  };
 
   const teamOptions: TeamOption[] = useMemo(() => teams, [teams]);
 
