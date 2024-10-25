@@ -3,23 +3,10 @@ import { useEffect, useState } from 'react';
 import Select from 'react-select';
 import Navbar from '../components/Navbar';
 import Modal from '../components/Modal'; // Import du composant Modal
-const backendUrl = import.meta.env.VITE_BACKEND_URL;
+import TwitchStream from '../components/TwitchStream';
+import customStyles from '../styles/customStyles';
 
-const TwitchStream = ({ username }: { username: string }) => (
-  <div className="twitch-stream bg-gradient-to-r from-violet-500/80 to-indigo-500/70 shadow-[0_0_50px_10px_rgba(139,92,246,0.7)] rounded-3xl overflow-hidden w-full h-[500px] p-1">
-    <iframe
-      src={`https://player.twitch.tv/?channel=${username}&parent=localhost`}
-      height="100%"
-      width="100%"
-      allowFullScreen
-      frameBorder="0"
-      scrolling="no"
-      allow="autoplay; fullscreen"
-      className="rounded-lg"
-      title={`Twitch stream de ${username}`}  // Ajout du titre unique
-    ></iframe>
-  </div>
-);
+const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
 const TournamentDetailsPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -67,44 +54,6 @@ const TournamentDetailsPage: React.FC = () => {
 
   const handlePlayerChange = (selectedOption: any) => {
     setSelectedPlayer(selectedOption?.value || '');
-  };
-
-  const customStyles = {
-    control: (provided: any, state: any) => ({
-      ...provided,
-      backgroundColor: '#1F2937',
-      borderColor: state.isFocused ? '#8B5CF6' : '#374151',
-      color: 'white',
-      padding: '8px',
-      borderRadius: '8px',
-      boxShadow: state.isFocused ? '0 0 0 1px #8B5CF6' : 'none',
-      '&:hover': {
-        borderColor: '#8B5CF6',
-      },
-    }),
-    option: (provided: any, state: any) => ({
-      ...provided,
-      backgroundColor: state.isFocused ? '#4C1D95' : '#374151',
-      color: 'white',
-      padding: 10,
-      cursor: 'pointer',
-    }),
-    singleValue: (provided: any) => ({
-      ...provided,
-      color: 'white',
-    }),
-    menu: (provided: any) => ({
-      ...provided,
-      backgroundColor: '#1F2937',
-    }),
-    input: (provided: any) => ({
-      ...provided,
-      color: 'white',
-    }),
-    placeholder: (provided: any) => ({
-      ...provided,
-      color: 'white',
-    }),
   };
 
   return (

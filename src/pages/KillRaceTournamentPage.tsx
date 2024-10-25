@@ -1,68 +1,14 @@
 import { useParams } from 'react-router-dom';
 import { useEffect, useState, useMemo } from 'react';
 import { useAuth } from '@clerk/clerk-react';
+import { Bracket, IRoundProps } from 'react-brackets';
 import Select from 'react-select';
 import Navbar from '../components/Navbar';
-import { Bracket, IRoundProps } from 'react-brackets';
+import TwitchStream from '../components/TwitchStream';
+import customStyles from '../styles/customStyles';
+import { generateEmptyRounds } from '../utils/bracketUtils';
 
 const backendUrl = import.meta.env.VITE_BACKEND_URL;
-
-const TwitchStream = ({ username }: { username: string }) => (
-  <div className="twitch-stream bg-gradient-to-r from-violet-500/80 to-indigo-500/70 shadow-[0_0_50px_10px_rgba(139,92,246,0.7)] rounded-3xl overflow-hidden w-full h-[500px] p-1">
-    <iframe
-      src={`https://player.twitch.tv/?channel=${username}&parent=localhost`}
-      height="100%"
-      width="100%"
-      allowFullScreen
-      frameBorder="0"
-      scrolling="no"
-      allow="autoplay; fullscreen"
-      className="rounded-lg"
-      title={`Twitch stream de ${username}`}  // Ajout du titre unique
-    ></iframe>
-  </div>
-);
-
-// Interface pour définir la structure d'un seed (match)
-interface ISeed {
-  id: number;
-  teams: Array<{ name: string }>;
-}
-
-// Fonction pour générer les rounds vides avec des seeds par défaut
-const generateEmptyRounds = (teamCount: number): IRoundProps[] => {
-  const rounds: IRoundProps[] = [];
-  const roundCount = Math.log2(teamCount); // nombre de rounds basé sur le nombre d'équipes
-
-  for (let roundIndex = 0; roundIndex < roundCount; roundIndex++) {
-    const seeds: ISeed[] = []; // Utilisation de ISeed au lieu de Seed
-    const matchCount = teamCount / Math.pow(2, roundIndex + 1); // nombre de matchs dans chaque round
-
-    for (let i = 0; i < matchCount; i++) {
-      seeds.push({
-        id: i + 1,
-        teams: [{ name: '' }, { name: '' }], // Teams vides initialement
-      });
-    }
-
-    // Définir le titre du round
-    let roundTitle;
-    if (roundIndex === roundCount - 2) {
-      roundTitle = 'Demi-final';
-    } else if (roundIndex === roundCount - 1) {
-      roundTitle = 'Final';
-    } else {
-      roundTitle = `Round ${roundIndex + 1}`;
-    }
-
-    rounds.push({
-      title: roundTitle,
-      seeds: seeds,
-    });
-  }
-
-  return rounds;
-};
 
 // Fonction pour ajouter une équipe au bracket
 const addTeamToBracket = (rounds: IRoundProps[], teamName: string): IRoundProps[] | string => {
@@ -166,30 +112,6 @@ const KillRaceTournamentPage: React.FC = () => {
 
   const handleTeamChange = (selectedOption: any) => {
     setSelectedTeam(selectedOption?.value || null);
-  };
-
-  const customStyles = {
-    control: (provided: any, state: any) => ({
-      ...provided,
-      backgroundColor: '#272b31',
-      borderColor: state.isFocused ? '#8B5CF6' : '#374151',
-      color: 'white',
-      padding: '8px',
-      borderRadius: '8px',
-      boxShadow: state.isFocused ? '0 0 0 1px #8B5CF6' : 'none',
-      '&:hover': { borderColor: '#8B5CF6' },
-    }),
-    option: (provided: any, state: any) => ({
-      ...provided,
-      backgroundColor: state.isFocused ? '#4C1D95' : '#374151',
-      color: 'white',
-      padding: 10,
-      cursor: 'pointer',
-    }),
-    singleValue: (provided: any) => ({ ...provided, color: 'white' }),
-    menu: (provided: any) => ({ ...provided, backgroundColor: '#272b31' }),
-    input: (provided: any) => ({ ...provided, color: 'white' }),
-    placeholder: (provided: any) => ({ ...provided, color: 'white' }),
   };
 
   if (loading) return <div>Chargement...</div>;

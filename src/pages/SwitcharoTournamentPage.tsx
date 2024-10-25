@@ -1,26 +1,14 @@
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+import { useAuth } from '@clerk/clerk-react';
 import Select from 'react-select';
 import Navbar from '../components/Navbar';
 import visibleStream from '../assets/voir-stream.png';
-import { useAuth } from '@clerk/clerk-react';
-const backendUrl = import.meta.env.VITE_BACKEND_URL;
+import TwitchStream from '../components/TwitchStream';
+import customStyles from '../styles/customStyles';
+import StatsForm from '../components/StatsForm';
 
-const TwitchStream = ({ username }: { username: string }) => (
-  <div className="twitch-stream bg-gradient-to-r from-violet-500/80 to-indigo-500/70 shadow-[0_0_50px_10px_rgba(139,92,246,0.7)] rounded-3xl overflow-hidden w-full h-[500px] p-1">
-    <iframe
-      src={`https://player.twitch.tv/?channel=${username}&parent=localhost`}
-      height="100%"
-      width="100%"
-      allowFullScreen
-      frameBorder="0"
-      scrolling="no"
-      allow="autoplay; fullscreen"
-      className="rounded-lg"
-      title={`Twitch stream de ${username}`}  // Ajout du titre unique
-    ></iframe>
-  </div>
-);
+const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
 const SwitcharoTournamentPage: React.FC = () => {
   const { getToken } = useAuth();
@@ -100,42 +88,6 @@ const SwitcharoTournamentPage: React.FC = () => {
     setSelectedTeam(selectedOption?.value || null);
   };
 
-  const customStyles = {
-    control: (provided: any, state: any) => ({
-      ...provided,
-      backgroundColor: '#1F2937',
-      borderColor: state.isFocused ? '#8B5CF6' : '#374151',
-      color: 'white',
-      padding: '8px',
-      borderRadius: '8px',
-      boxShadow: state.isFocused ? '0 0 0 1px #8B5CF6' : 'none',
-      '&:hover': { borderColor: '#8B5CF6' },
-    }),
-    option: (provided: any, state: any) => ({
-      ...provided,
-      backgroundColor: state.isFocused ? '#4C1D95' : '#374151',
-      color: 'white', // Il n'est pas nécessaire d'avoir une condition sur "state.isFocused"
-      padding: 10,
-      cursor: 'pointer',
-    }),
-    singleValue: (provided: any) => ({
-      ...provided,
-      color: 'white',
-    }),
-    menu: (provided: any) => ({
-      ...provided,
-      backgroundColor: '#1F2937',
-    }),
-    input: (provided: any) => ({
-      ...provided,
-      color: 'white',
-    }),
-    placeholder: (provided: any) => ({
-      ...provided,
-      color: 'white',
-    }),
-  };  
-
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 to-black text-white">
       <Navbar />
@@ -184,49 +136,15 @@ const SwitcharoTournamentPage: React.FC = () => {
               </ul>
 
               {/* Formulaire pour mettre à jour les statistiques */}
-              <form onSubmit={handleStatsUpdate} className="mt-6">
-                <div className="flex flex-col space-y-4">
-                  <div>
-                    <label htmlFor="ratio" className="block text-white">Ratio (K/D)</label>
-                    <input
-                      id="ratio"
-                      type="number"
-                      value={ratio || ''}
-                      onChange={(e) => setRatio(Number(e.target.value))}
-                      className="mt-1 block w-full bg-gray-700 text-white p-2 rounded"
-                    />
-                  </div>
-
-                  <div>
-                    <label htmlFor="kills" className="block text-white">Kills</label>
-                    <input
-                      id="kills"
-                      type="number"
-                      value={kills || ''}
-                      onChange={(e) => setKills(Number(e.target.value))}
-                      className="mt-1 block w-full bg-gray-700 text-white p-2 rounded"
-                    />
-                  </div>
-
-                  <div>
-                    <label htmlFor="placement" className="block text-white">Placement</label>
-                    <input
-                      id="placement"
-                      type="number"
-                      value={placement || ''}
-                      onChange={(e) => setPlacement(Number(e.target.value))}
-                      className="mt-1 block w-full bg-gray-700 text-white p-2 rounded"
-                    />
-                  </div>
-                </div>
-
-                <button
-                  type="submit"
-                  className="mt-4 bg-purple-600 text-white py-2 px-4 rounded"
-                >
-                  Mettre à jour
-                </button>
-              </form>
+              <StatsForm
+                ratio={ratio}
+                kills={kills}
+                placement={placement}
+                setRatio={setRatio}
+                setKills={setKills}
+                setPlacement={setPlacement}
+                handleSubmit={handleStatsUpdate}
+              />
 
               {teamOptions.length > 0 && (
                 <div className="mt-6">
