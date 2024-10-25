@@ -6,22 +6,21 @@ import visibleStream from '../assets/voir-stream.png';
 import { useAuth } from '@clerk/clerk-react';
 const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
-const TwitchStream = ({ username }: { username: string }) => {
-  return (
-    <div className="twitch-stream bg-gradient-to-r from-violet-500/80 to-indigo-500/70 shadow-[0_0_50px_10px_rgba(139,92,246,0.7)] rounded-3xl overflow-hidden w-[1059px] h-[600px] p-1">
-      <iframe
-        src={`https://player.twitch.tv/?channel=${username}&parent=localhost`}
-        height="100%"
-        width="100%"
-        allowFullScreen={true}
-        frameBorder="0"
-        scrolling="no"
-        allow="autoplay; fullscreen"
-        className="rounded-[1.4rem]"
-      />
-    </div>
-  );
-};
+const TwitchStream = ({ username }: { username: string }) => (
+  <div className="twitch-stream bg-gradient-to-r from-violet-500/80 to-indigo-500/70 shadow-[0_0_50px_10px_rgba(139,92,246,0.7)] rounded-3xl overflow-hidden w-full h-[500px] p-1">
+    <iframe
+      src={`https://player.twitch.tv/?channel=${username}&parent=localhost`}
+      height="100%"
+      width="100%"
+      allowFullScreen
+      frameBorder="0"
+      scrolling="no"
+      allow="autoplay; fullscreen"
+      className="rounded-lg"
+      title={`Twitch stream de ${username}`}  // Ajout du titre unique
+    ></iframe>
+  </div>
+);
 
 const SwitcharoTournamentPage: React.FC = () => {
   const { getToken } = useAuth();
@@ -99,15 +98,6 @@ const SwitcharoTournamentPage: React.FC = () => {
   if (loading) return <div>Chargement...</div>;
   if (error) return <div>{error}</div>;
 
-  const options = tournament?.players?.map(({ player }: any) => ({
-    value: player.twitchUsername,
-    label: player.username,
-  })) || [];
-
-  const handlePlayerChange = (selectedOption: any) => {
-    setSelectedPlayer(selectedOption?.value || '');
-  };
-
   const teamOptions = tournament?.teams?.map((team: any) => ({
     value: team,
     label: `${team.player1.username} - ${team.player2.username}`,
@@ -126,14 +116,12 @@ const SwitcharoTournamentPage: React.FC = () => {
       padding: '8px',
       borderRadius: '8px',
       boxShadow: state.isFocused ? '0 0 0 1px #8B5CF6' : 'none',
-      '&:hover': {
-        borderColor: '#8B5CF6',
-      },
+      '&:hover': { borderColor: '#8B5CF6' },
     }),
     option: (provided: any, state: any) => ({
       ...provided,
       backgroundColor: state.isFocused ? '#4C1D95' : '#374151',
-      color: state.isFocused ? 'white' : 'white',
+      color: 'white', // Il n'est pas nécessaire d'avoir une condition sur "state.isFocused"
       padding: 10,
       cursor: 'pointer',
     }),
@@ -153,7 +141,7 @@ const SwitcharoTournamentPage: React.FC = () => {
       ...provided,
       color: 'white',
     }),
-  };
+  };  
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 to-black text-white">
@@ -179,8 +167,8 @@ const SwitcharoTournamentPage: React.FC = () => {
             <div className="w-full bg-gray-800 p-6 rounded-3xl shadow-lg ml-44">
               <p className="text-2xl font-semibold mb-4">Participants</p>
               <ul className="space-y-4">
-                {tournament?.players?.map(({ player }: any, index: number) => (
-                  <li key={index} className="flex items-center justify-between">
+                {tournament?.players?.map(({ player }: any) => (
+                  <li key={player.id} className="flex items-center justify-between">
                     <div>
                       <span className="font-bold text-lg">{player.username}</span>
                       <p className="text-sm text-gray-400 mt-1">

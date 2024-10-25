@@ -5,22 +5,21 @@ import Navbar from '../components/Navbar';
 import Modal from '../components/Modal'; // Import du composant Modal
 const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
-const TwitchStream = ({ username }: { username: string }) => {
-  return (
-    <div className="twitch-stream bg-gradient-to-r from-violet-500/80 to-indigo-500/70 shadow-[0_0_50px_10px_rgba(139,92,246,0.7)] rounded-3xl overflow-hidden w-[1059px] h-[600px] p-1">
-      <iframe
-        src={`https://player.twitch.tv/?channel=${username}&parent=localhost`}
-        height="100%"
-        width="100%"
-        allowFullScreen={true}
-        frameBorder="0"
-        scrolling="no"
-        allow="autoplay; fullscreen"
-        className="rounded-[1.4rem]"
-      />
-    </div>
-  );
-};
+const TwitchStream = ({ username }: { username: string }) => (
+  <div className="twitch-stream bg-gradient-to-r from-violet-500/80 to-indigo-500/70 shadow-[0_0_50px_10px_rgba(139,92,246,0.7)] rounded-3xl overflow-hidden w-full h-[500px] p-1">
+    <iframe
+      src={`https://player.twitch.tv/?channel=${username}&parent=localhost`}
+      height="100%"
+      width="100%"
+      allowFullScreen
+      frameBorder="0"
+      scrolling="no"
+      allow="autoplay; fullscreen"
+      className="rounded-lg"
+      title={`Twitch stream de ${username}`}  // Ajout du titre unique
+    ></iframe>
+  </div>
+);
 
 const TournamentDetailsPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -86,7 +85,7 @@ const TournamentDetailsPage: React.FC = () => {
     option: (provided: any, state: any) => ({
       ...provided,
       backgroundColor: state.isFocused ? '#4C1D95' : '#374151',
-      color: state.isFocused ? 'white' : 'white',
+      color: 'white',
       padding: 10,
       cursor: 'pointer',
     }),

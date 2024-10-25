@@ -65,7 +65,7 @@ const generateEmptyRounds = (teamCount: number): IRoundProps[] => {
 };
 
 // Fonction pour ajouter une équipe au bracket
-const addTeamToBracket = (rounds: IRoundProps[], teamName: string): IRoundProps[] => {
+const addTeamToBracket = (rounds: IRoundProps[], teamName: string): IRoundProps[] | string => {
   const updatedRounds = [...rounds];
 
   // Chercher dans les seeds du premier round
@@ -86,10 +86,8 @@ const addTeamToBracket = (rounds: IRoundProps[], teamName: string): IRoundProps[
     }
   }
 
-  // Si aucune place n'a été trouvée, on retourne un message d'erreur ou une gestion de l'erreur
-  // Ici on peut ajouter une gestion spécifique en fonction du contexte
-  console.error("Impossible d'ajouter l'équipe au bracket : pas de place libre.");
-  return updatedRounds; // On retourne tout de même le tableau mis à jour même si aucune place n'a été trouvée.
+  // Si aucune place n'a été trouvée, on retourne un message d'erreur
+  return "Aucune place disponible dans le bracket.";
 };
 
 interface TeamOption {
@@ -137,7 +135,12 @@ const KillRaceTournamentPage: React.FC = () => {
         // Ajouter les équipes inscrites existantes au bracket
         let updatedRounds = emptyRounds;
         teamsData.forEach((team: any) => {
-          updatedRounds = addTeamToBracket(updatedRounds, `${team.player1.username} - ${team.player2.username}`);
+          const result = addTeamToBracket(updatedRounds, `${team.player1.username} - ${team.player2.username}`);
+          if (typeof result === 'string') {
+            console.error(result); // Message d'erreur
+          } else {
+            updatedRounds = result;
+          }
         });
 
         setRounds(updatedRounds);

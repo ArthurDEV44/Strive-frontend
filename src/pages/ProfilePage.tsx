@@ -97,8 +97,9 @@ const ProfilePage: React.FC = () => {
         {successMessage && <p className="text-green-500 mb-4">{successMessage}</p>}
         <form onSubmit={handleSubmit} className="bg-gray-800 p-6 rounded-lg shadow-lg">
           <div className="mb-4">
-            <label className="block text-sm font-medium text-gray-300">Twitch</label>
+            <label htmlFor="twitch" className="block text-sm font-medium text-gray-300">Twitch</label>
             <input
+              id="twitch"
               type="text"
               value={twitchUsername}
               onChange={(e) => setTwitchUsername(e.target.value)}
@@ -107,8 +108,9 @@ const ProfilePage: React.FC = () => {
             />
           </div>
           <div className="mb-4">
-            <label className="block text-sm font-medium text-gray-300">Discord</label>
+            <label htmlFor="discord" className="block text-sm font-medium text-gray-300">Discord</label>
             <input
+              id="discord"
               type="text"
               value={discordUsername}
               onChange={(e) => setDiscordUsername(e.target.value)}
@@ -117,8 +119,9 @@ const ProfilePage: React.FC = () => {
             />
           </div>
           <div className="mb-4">
-            <label className="block text-sm font-medium text-gray-300">Activision</label>
+            <label htmlFor="activision" className="block text-sm font-medium text-gray-300">Activision</label>
             <input
+              id="activision"
               type="text"
               value={activisionUsername}
               onChange={(e) => setActivisionUsername(e.target.value)}
@@ -127,9 +130,10 @@ const ProfilePage: React.FC = () => {
             />
           </div>
           <div className="mb-4">
-            <label className="block text-sm font-medium text-gray-300">Ratio (K/D)</label>
+            <label htmlFor="ratio" className="block text-sm font-medium text-gray-300">Ratio (K/D)</label>
             <div className="flex items-center space-x-2">
               <input
+                id="ratio"
                 type="text"
                 value={firstPartRatio}
                 onChange={(e) => setFirstPartRatio(e.target.value.replace(/\D/g, ''))} // Seuls les chiffres sont autorisés
@@ -138,6 +142,7 @@ const ProfilePage: React.FC = () => {
               />
               <span className="text-lg text-gray-300">.</span>
               <input
+                id="ratio-decimal"
                 type="text"
                 value={secondPartRatio}
                 onChange={(e) => setSecondPartRatio(e.target.value.replace(/\D/g, '').slice(0, 2))} // Limiter à 2 chiffres
