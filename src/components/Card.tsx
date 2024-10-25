@@ -265,28 +265,28 @@ const Card: React.FC<CardProps> = ({
             <p className="text-gray-300">Début: {timeRemaining}</p>
           </div>
         </div>
-      </button>
-      <div className="px-6 pb-4 mt-auto">
-        <div className="flex items-center justify-between">
-          <button
-            className={`text-white px-4 py-2 rounded-full transition-all duration-300 ${
-              isRegistered ? 'border border-green-400 text-green-400' : 'bg-gradient-to-r from-purple-900 to-blue-900'
-            }`}
-            onClick={handleRegister}
-            disabled={isRegistered}
-          >
-            {isRegistered ? (
-              <>
-                Inscrit{" "}
-                <img className="rounded-full w-4 h-4 inline-block ml-1" src={badge} alt="Badge" />
-              </>
-            ) : (
-              buttonText // Utilisation de la variable pour le texte du bouton
-            )}
-          </button>
-          <div className="text-pink-500 cursor-pointer hover:scale-110 transition-transform duration-200">❤</div>
+        <div className="px-6 pb-4 mt-auto">
+          <div className="flex items-center justify-between">
+            <button
+              className={`text-white px-4 py-2 rounded-full transition-all duration-300 ${
+                isRegistered ? 'border border-green-400 text-green-400' : 'bg-gradient-to-r from-purple-900 to-blue-900'
+              }`}
+              onClick={handleRegister}
+              disabled={isRegistered}
+            >
+              {isRegistered ? (
+                <>
+                  Inscrit{" "}
+                  <img className="rounded-full w-4 h-4 inline-block ml-1" src={badge} alt="Badge" />
+                </>
+              ) : (
+                buttonText // Utilisation de la variable pour le texte du bouton
+              )}
+            </button>
+            <div className="text-pink-500 cursor-pointer hover:scale-110 transition-transform duration-200">❤</div>
+          </div>
         </div>
-      </div>
+      </button>
 
       {/* Modal de configuration d'équipe */}
       <TeamSetupModal

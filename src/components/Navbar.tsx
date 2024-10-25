@@ -35,101 +35,65 @@ const Navbar: React.FC = () => {
 
   return (
     <nav className="w-full flex items-center justify-between px-6 py-4 bg-gradient-to-r from-purple-900 to-blue-900 text-white shadow-lg relative z-50">
-      <img
-        src={striveLogo}
-        alt="Strive Logo"
-        role="button"
-        tabIndex={0}
+      {/* Utilisation d'un bouton pour rendre l'image interactive */}
+      <button
         onClick={handleHome}
-        onKeyDown={(e) => {
-          if (e.key === 'Enter' || e.key === ' ') {
-            handleHome();
-          }
-        }}
         className="w-24 h-auto cursor-pointer hover:opacity-80 transition-opacity duration-300"
-      />
+        aria-label="Strive Logo"
+      >
+        <img src={striveLogo} alt="Strive Logo" className="w-full h-auto" />
+      </button>
+      
       <div className="flex space-x-6">
-        <a
-          role="button"
-          tabIndex={0}
+        <button
           onClick={handleTournaments}
-          onKeyDown={(e) => {
-            if (e.key === 'Enter' || e.key === ' ') {
-              handleTournaments();
-            }
-          }}
           className="text-white hover:text-gray-300 cursor-pointer transition-colors duration-300"
         >
           Tournois
-        </a>
-        <a
-          role="button"
-          tabIndex={0}
+        </button>
+
+        <button
           onClick={handleSubscriptions}
-          onKeyDown={(e) => {
-            if (e.key === 'Enter' || e.key === ' ') {
-              handleSubscriptions();
-            }
-          }}
           className="text-white hover:text-gray-300 cursor-pointer transition-colors duration-300"
         >
           Abonnements
-        </a>
-        <a
-          role="button"
-          tabIndex={0}
+        </button>
+
+        <button
           onClick={handleForum}
-          onKeyDown={(e) => {
-            if (e.key === 'Enter' || e.key === ' ') {
-              handleForum();
-            }
-          }}
           className="text-white hover:text-gray-300 cursor-pointer transition-colors duration-300"
         >
           Forum
-        </a>
-        <a
-          role="button"
-          tabIndex={0}
+        </button>
+
+        <button
           onClick={handleCreateTournament}
-          onKeyDown={(e) => {
-            if (e.key === 'Enter' || e.key === ' ') {
-              handleCreateTournament();
-            }
-          }}
           className="text-white hover:text-gray-300 cursor-pointer transition-colors duration-300"
         >
           Créer un Tournoi
-        </a>
-        <a
-          role="button"
-          tabIndex={0}
+        </button>
+
+        <button
           onClick={handleDashboard}
-          onKeyDown={(e) => {
-            if (e.key === 'Enter' || e.key === ' ') {
-              handleDashboard();
-            }
-          }}
           className="text-white hover:text-gray-300 cursor-pointer transition-colors duration-300"
         >
           Tableau de bord
-        </a>
-        <a
-          role="button"
-          tabIndex={0}
+        </button>
+
+        <button
           onClick={handleProfile}
-          onKeyDown={(e) => {
-            if (e.key === 'Enter' || e.key === ' ') {
-              handleProfile();
-            }
-          }}
           className="text-white hover:text-gray-300 cursor-pointer transition-colors duration-300"
         >
           Profil
-        </a>
+        </button>
       </div>
+
       <div className="flex items-center space-x-4">
-        <input type="text" placeholder="Rechercher..." className="bg-gray-800 text-white rounded px-3 py-1 focus:outline-none focus:ring-2 focus:ring-[#1f2937] border border-[#1f2937] transition duration-300" />
+        <input
+          type="text"
+          placeholder="Rechercher..."
+          className="bg-gray-800 text-white rounded px-3 py-1 focus:outline-none focus:ring-2 focus:ring-[#1f2937] border border-[#1f2937] transition duration-300"
+        />
         <SignedIn>
           <UserButton />
         </SignedIn>
