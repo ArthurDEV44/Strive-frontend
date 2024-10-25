@@ -33,9 +33,7 @@ const SwitcharoTournamentPage: React.FC = () => {
 
   const [kills, setKills] = useState<number | null>(null);
   const [placement, setPlacement] = useState<number | null>(null);
-  const [proofImage, setProofImage] = useState<File | null>(null);
   const [ratio, setRatio] = useState<number | null>(null);
-  const [uploading, setUploading] = useState(false);
 
   useEffect(() => {
     const fetchTournamentDetails = async () => {
@@ -70,10 +68,7 @@ const SwitcharoTournamentPage: React.FC = () => {
       const formData = new FormData();
       formData.append('kills', kills?.toString() || '');
       formData.append('placement', placement?.toString() || '');
-      formData.append('proofImage', proofImage || '');
       formData.append('ratio', ratio?.toString() || '');
-
-      setUploading(true);
 
       const response = await fetch(`${backendUrl}/api/tournament/update-stats`, {
         method: 'PUT',
@@ -90,8 +85,6 @@ const SwitcharoTournamentPage: React.FC = () => {
       alert('Statistiques mises à jour avec succès.');
     } catch (error) {
       alert('Erreur lors de la mise à jour des statistiques.');
-    } finally {
-      setUploading(false);
     }
   };
 
