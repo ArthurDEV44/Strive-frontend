@@ -194,48 +194,45 @@ const SwitcharoTournamentPage: React.FC = () => {
               <form onSubmit={handleStatsUpdate} className="mt-6">
                 <div className="flex flex-col space-y-4">
                   <div>
-                    <label className="block text-white">Ratio (K/D)</label>
+                    <label htmlFor="ratio" className="block text-white">Ratio (K/D)</label>
                     <input
+                      id="ratio"
                       type="number"
                       value={ratio || ''}
                       onChange={(e) => setRatio(Number(e.target.value))}
                       className="mt-1 block w-full bg-gray-700 text-white p-2 rounded"
                     />
                   </div>
+
                   <div>
-                    <label className="block text-white">Kills</label>
+                    <label htmlFor="kills" className="block text-white">Kills</label>
                     <input
+                      id="kills"
                       type="number"
                       value={kills || ''}
                       onChange={(e) => setKills(Number(e.target.value))}
                       className="mt-1 block w-full bg-gray-700 text-white p-2 rounded"
                     />
                   </div>
+
                   <div>
-                    <label className="block text-white">Placement</label>
+                    <label htmlFor="placement" className="block text-white">Placement</label>
                     <input
+                      id="placement"
                       type="number"
                       value={placement || ''}
                       onChange={(e) => setPlacement(Number(e.target.value))}
                       className="mt-1 block w-full bg-gray-700 text-white p-2 rounded"
                     />
                   </div>
-                  <div>
-                    <label className="block text-white">Capture d'écran de la preuve</label>
-                    <input
-                      type="file"
-                      onChange={(e) => setProofImage(e.target.files ? e.target.files[0] : null)}
-                      className="mt-1 block w-full bg-gray-700 text-white p-2 rounded"
-                    />
-                  </div>
-                  <button
-                    type="submit"
-                    className="bg-purple-600 text-white py-2 px-4 rounded-md hover:bg-purple-700 disabled:opacity-50"
-                    disabled={uploading}
-                  >
-                    {uploading ? 'En cours...' : 'Mettre à jour les stats'}
-                  </button>
                 </div>
+
+                <button
+                  type="submit"
+                  className="mt-4 bg-purple-600 text-white py-2 px-4 rounded"
+                >
+                  Mettre à jour
+                </button>
               </form>
 
               {teamOptions.length > 0 && (
